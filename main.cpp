@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <string>
 #include <fstream>
+#include <cctype>
 
 using namespace std;
 
@@ -52,6 +53,16 @@ struct DatPhong {
 };
 
 //protype--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//Cac ham dieu kien
+	bool isName(string name);
+	bool isCode(string code);
+	bool isAge(int age);
+	bool isSDT(string sdt);
+	bool isCCCD(string cccd);
+	bool isTaiKhoan(int taiKhoan);
+	bool isLoaiPhong(int loaiPhong);
+	bool isTrangThai(int trangThai);
+
 	//DangNhap
 	int dangNhapAdmin();
 	int dangNhapUser();
@@ -78,11 +89,13 @@ struct DatPhong {
 	//DatPhong
 	void inDanhSachPhong();
 	void hienThiPhongConTrong();
-	void datPhongTheoMaPhong();
+	void datPhongTheoMaPhong(DanhSachPhong& danhSachPhong, DanhSachKhachHang& danhSachKhachHang);
 	void traPhongTheoMaPhong();
 	//Doc/Ghi File
-	void ghiVaoFile(const DanhSachPhong& danhSachPhong, const DanhSachKhachHang& danhSachKhachHang);
-	void docTuFile(DanhSachPhong& danhSachPhong, DanhSachKhachHang& danhSachKhachHang);
+	void ghiVaoFilePhong(const DanhSachPhong& danhSachPhong);
+	void ghiVaoFileKhachHang(const DanhSachKhachHang& danhSachKhachHang);
+	void docTuFilePhong(DanhSachPhong& danhSachPhong);
+	void docTuFileKhachHang(DanhSachKhachHang& danhSachKhachHang);
 	//Menu
 	void menuDangNhap();
 	void menuAdmin();
@@ -98,7 +111,90 @@ DanhSachKhachHang danhSachKhachHang;
 int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 
 // Viet ham
-	//DangNhap
+	//Cac ham kiem tra dieu kien
+	// Kiểm tra tên
+	bool isName(string name) {
+		// Kiểm tra xem độ dài của tên có vượt quá 20 ký tự không
+		if (name.length() > 20) {
+			return false;
+		}
+
+		// Kiểm tra xem ký tự đầu tiên của mỗi từ có phải là chữ hoa không
+		for (size_t i = 0; i < name.length(); ++i) {
+			if (i == 0 || name[i - 1] == ' ') {
+				if (!isupper(name[i])) {
+					return false;
+				}
+			} else {
+				if (!isalpha(name[i])) {
+					return false;
+				}
+			}
+		}
+
+		// Nếu tất cả các điều kiện đều đúng, trả về true
+		return true;
+	}
+
+	// Kiểm tra mã
+	bool isCode(string code) {
+		if (code.length() != 5) {
+			return false;
+		}
+
+		if (!isupper(code[0]) || !isupper(code[1])) {
+			return false;
+		}
+
+		for (char c : code.substr(2)) {
+			if (!isdigit(c)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	// Kiểm tra tuổi
+	bool isAge(int age) {
+		return age >= 0 && age <= 100;
+	}
+
+	// Kiểm tra số điện thoại
+	bool isSDT(string sdt) {
+		if (sdt.length() != 10 || sdt[0] != '0') {
+			return false;
+		}
+
+		for (char c : sdt.substr(1)) {
+			if (!isdigit(c)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	// Kiểm tra CCCD
+	bool isCCCD(string cccd) {
+		return cccd.length() == 12 && isdigit(cccd[0]);
+	}
+
+	// Kiểm tra tài khoản
+	bool isTaiKhoan(int taiKhoan) {
+		return taiKhoan > 100000;
+	}
+
+	bool isLoaiPhong(int loaiPhong) {
+		return loaiPhong == 0 || loaiPhong == 1;
+	}
+
+	// Kiểm tra trạng thái phòng (0 hoặc 1)
+	bool isTrangThai(int trangThai) {
+		return trangThai == 0 || trangThai == 1;
+	}
+
+	//DangNhap-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	int dangNhapAdmin(){
 	    string username, password;
   
@@ -157,24 +253,47 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 		Node* nutMoi = new Node;
 		nutMoi->next = nullptr;
 
-		NhapMaPhong:
-		// Nhap thong tin phong
-		cout << "Nhap ma phong: ";
-		getline(cin, nutMoi->data.maPhong);
+		do {
+			// Nhap thong tin phong
+			cout << "Nhap ma phong: ";
+			getline(cin, nutMoi->data.maPhong);
+			if (isCode(nutMoi->data.maPhong) == false) {
+				cout << "Ma phong khong hop le!\n(Ma phong hop le: VD: PH001)\nVui long nhap ma phong khac!\n" << endl;
+			} 
 
-		if (kiemTraPhongTonTai(nutMoi->data.maPhong) == true) {
-			cout << "Ma phong nay da ton tai!\nVui long nhap ma phong khac!" << endl;
-			goto NhapMaPhong;
+			if (kiemTraPhongTonTai(nutMoi->data.maPhong) == true) {
+				cout << "Ma phong nay da ton tai!\nVui long nhap ma phong khac!" << endl;
+			}			
 		}
+		while ((isCode(nutMoi->data.maPhong) == false) || (kiemTraPhongTonTai(nutMoi->data.maPhong) == true));
 
-		cout << "Nhap loai phong (1: VIP, 0: Thuong): ";
-		cin >> nutMoi->data.loaiPhong;
+		do {
+			cout << "Nhap loai phong (1: VIP, 0: Thuong): ";
+			cin >> nutMoi->data.loaiPhong;
+			if (isLoaiPhong(nutMoi->data.loaiPhong) == false) {
+				cout << "Loai phong khong hop le!\nVui long nhap loai phong khac!\n" << endl;
+			}
+		}
+		while (isLoaiPhong(nutMoi->data.loaiPhong) == false);
 
-		cout << "Nhap gia phong (VND): ";
-		cin >> nutMoi->data.giaPhong;
+		do {
+			cout << "Nhap gia phong (VND): ";
+			cin >> nutMoi->data.giaPhong;			
+			if (isTaiKhoan(nutMoi->data.giaPhong) == false) {
+				cout << "Gia phong khong hop le!\n(Gia phong hop le: VD: 100 000(tro len))\nVui long nhap 1 gia phong khac!\n" << endl;
+			}
+		}
+		while (isTaiKhoan(nutMoi->data.giaPhong) == false);
 
-		cout << "Nhap trang thai phong (1: Trong, 0: Da dat): ";
-		cin >> nutMoi->data.trangThai;
+		do {
+			cout << "Nhap trang thai phong (1: Trong, 0: Da dat): ";
+			cin >> nutMoi->data.trangThai;	
+			if (isTrangThai(nutMoi->data.trangThai) == false) {
+				cout << "Trang thai khong hop le!\nVui long nhap lai trang thai khac!\n" << endl;
+			}	
+		}
+		while (isTrangThai(nutMoi->data.trangThai) == false);
+
 
 		// Them nut moi vao danh sach lien ket
 		if (danhSachPhong.dau == nullptr) {
@@ -209,14 +328,32 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 				cout << "+---------------+---------------+---------------+---------------+" << endl;
 
 				// Nhap thong tin moi
-				cout << "Nhap loai phong moi (1: VIP, 0: Thuong): ";
-				cin >> hienTai->data.loaiPhong;
+				do {
+					cout << "Nhap loai phong moi (1: VIP, 0: Thuong): ";
+					cin >> hienTai->data.loaiPhong;	
+					if (isLoaiPhong(hienTai->data.loaiPhong) == false) {
+					cout << "Loai phong khong hop le!\nVui long nhap loai phong khac!\n" << endl;
+					}			
+				}
+				while (isLoaiPhong(hienTai->data.loaiPhong) == false);
 
-				cout << "Nhap gia phong moi: ";
-				cin >> hienTai->data.giaPhong;
-
-				cout << "Nhap trang thai phong moi (1: Trong, 0: Da dat): ";
-				cin >> hienTai->data.trangThai;
+				do {
+					cout << "Nhap gia phong moi: ";
+					cin >> hienTai->data.giaPhong;		
+					if (isTaiKhoan(hienTai->data.giaPhong) == false) {
+					cout << "Gia phong khong hop le!\n(Gia phong hop le: VD: 100 000(tro len))\nVui long nhap 1 gia phong khac!\n" << endl;
+					}		
+				}
+				while (isTaiKhoan(hienTai->data.giaPhong) == false);
+				
+				do {
+					cout << "Nhap trang thai phong moi (1: Trong, 0: Da dat): ";
+					cin >> hienTai->data.trangThai;		
+					if (isTrangThai(hienTai->data.trangThai) == false) {
+					cout << "Trang thai khong hop le!\nVui long nhap lai trang thai khac!\n" << endl;
+					}			
+				}
+				while (isTrangThai(hienTai->data.trangThai) == false);
 
 				cout << "Thong tin phong da duoc cap nhat!" << endl;
 				return;
@@ -329,6 +466,7 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 
 	// Ham tim kiem phong theo trang thai
 	void timKiemPhongTheoTrangThai() {
+		// Kiểm tra danh sách phòng có rỗng hay không
 		if (danhSachPhong.dau == nullptr) {
 			cout << "Danh sach phong rong." << endl;
 			return;
@@ -343,11 +481,18 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 		cout << "+---------------+---------------+---------------+---------------+" << endl;
 
 		Node* hienTai = danhSachPhong.dau;
+		bool coPhong = false;  // Biến cờ để kiểm tra xem có phòng nào thỏa mãn hay không
+
 		while (hienTai != nullptr) {
 			if (hienTai->data.trangThai == trangThaiCanTim) {
 				inThongTin1Phong(hienTai->data);
+				coPhong = true;  // Đặt cờ thành true khi có ít nhất một phòng thỏa mãn
 			}
 			hienTai = hienTai->next;
+		}
+
+		if (!coPhong) {
+			cout << "|       Khong co phong nao thoa man trang thai tim kiem.        |" << endl;
 		}
 
 		cout << "+---------------+---------------+---------------+---------------+" << endl;
@@ -423,33 +568,76 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 	void themKhachHang() {
 		NodeKH* nutMoi = new NodeKH;
 		nutMoi->next = nullptr;
-	NhapMaKH:
-		cout << "Nhap ma khach hang: ";
-		getline(cin, nutMoi->data.maKhach);
 
-		if (kiemTraKhachHangTonTai(nutMoi->data.maKhach) == true) {
-			cout << "Ma khach hang nay da ton tai!\nVui long nhap ma khach hang khac!" << endl;
-			goto NhapMaKH;
+		do {
+			cout << "Nhap ma khach hang: ";
+			getline(cin, nutMoi->data.maKhach);
+
+			if (isCode(nutMoi->data.maKhach) == false) {
+				cout << "Ma khach hang khong hop le!\n(Ma khach hang hop le: VD: KH001)\nVui long nhap lai ma khach hang khac!\n" << endl;
+			}
+
+			if (kiemTraKhachHangTonTai(nutMoi->data.maKhach) == true) {
+				cout << "Ma khach hang nay da ton tai!\nVui long nhap lai ma khach hang khac!" << endl;
+			}
 		}
 
-		cout << "Nhap ten khach hang: ";
-		getline(cin, nutMoi->data.tenKhach);
+		while ((isCode(nutMoi->data.maKhach) == false) || (kiemTraKhachHangTonTai(nutMoi->data.maKhach) == true));
 
-		cout << "Nhap tuoi: ";
-		cin >> nutMoi->data.tuoi;
+		do {
+			cout << "Nhap ten khach hang: ";
+			getline(cin, nutMoi->data.tenKhach);
+			if (isName(nutMoi->data.tenKhach) == false) {
+				cout << "Ten khach hang khong hop le!\n(Ten hop le: VD: Nguyen Huu Toan)\nVui long nhap lai ten khach hang khac!\n" << endl;
+			}		
+		}
+		while (isName(nutMoi->data.tenKhach) == false);
 
-		cout << "Nhap so dien thoai: ";
-		cin.ignore();
-		getline(cin, nutMoi->data.soDT);
+		do {
+			cout << "Nhap tuoi: ";
+			cin >> nutMoi->data.tuoi;
+			cin.ignore();
+			if (isAge(nutMoi->data.tuoi) == false) {
+				cout << "Tuoi khong hop le!\nVui long nhap lai tuoi khac!\n" << endl;
+			}
+		}
+		while (isAge(nutMoi->data.tuoi) == false);
 
-		cout << "Nhap CCCD: ";
-		getline(cin, nutMoi->data.CCCD);
+		do {
+			cout << "Nhap so dien thoai: ";
+			getline(cin, nutMoi->data.soDT);
+			if (isSDT(nutMoi->data.soDT) == false) {
+				cout << "So dien thoai khong hop le!\nVui long nhap lai so dien thoai khac!\n" << endl;
+			}
+		}
+		while (isSDT(nutMoi->data.soDT) == false);
 
-		cout << "Nhap dia chi: ";
-		getline(cin, nutMoi->data.diaChi);
+		do {
+			cout << "Nhap CCCD: ";
+			getline(cin, nutMoi->data.CCCD);	
+			if (isCCCD(nutMoi->data.CCCD) == false) {
+				cout << "CCCD khong hop le!\nVui long nhap lai so CCCD khac!\n" << endl;
+			}	
+		}
+		while (isCCCD(nutMoi->data.CCCD) == false);
 
-		cout << "Nhap tai khoan (VND): ";
-		cin >> nutMoi->data.taiKhoan;
+		do {
+			cout << "Nhap dia chi: ";
+			getline(cin, nutMoi->data.diaChi);		
+			if (isName(nutMoi->data.diaChi) == false) {
+				cout << "Dia chi khong hop le!\n(Dia chi hop le: VD: Binh Dinh, Tp Ho Chi Minh)\nVui long nhap lai 1 dia chi khac!\n" << endl;
+			}
+		}
+		while (isName(nutMoi->data.diaChi) == false);
+
+		do {
+			cout << "Nhap so du tai khoan (VND): ";
+			cin >> nutMoi->data.taiKhoan;	
+			if (isTaiKhoan(nutMoi->data.taiKhoan) == false) {
+				cout << "So du tai khoan khong hop le!\n(So du tai khoan hop le: VD: 100 000(tro len))\nVui long nhap lai 1 so du tai khoan khac!\n" << endl;
+			}	
+		}
+		while (isTaiKhoan(nutMoi->data.taiKhoan) == false);
 
 		if (danhSachKhachHang.dauKH == nullptr) {
 			danhSachKhachHang.dauKH = nutMoi;
@@ -482,24 +670,61 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 				inThongTin1KhachHang(hienTai->data);
 				cout << "+---------------+--------------------+------+---------------+--------------------+--------------------+---------------+" << endl;
 
-				cout << "Nhap ten khach hang moi: ";
-				getline(cin, hienTai->data.tenKhach);
 
-				cout << "Nhap tuoi moi: ";
-				cin >> hienTai->data.tuoi;
+				do {
+					cout << "Nhap ten khach hang: ";
+					getline(cin, hienTai->data.tenKhach);
+					if (isName(hienTai->data.tenKhach) == false) {
+						cout << "Ten khach hang khong hop le!\n(Ten hop le: VD: Nguyen Huu Toan)\nVui long nhap lai ten khach hang khac!\n" << endl;
+					}		
+				}
+				while (isName(hienTai->data.tenKhach) == false);
 
-				cout << "Nhap so dien thoai moi: ";
-				cin.ignore();
-				getline(cin, hienTai->data.soDT);
+				do {
+					cout << "Nhap tuoi moi: ";
+					cin >> hienTai->data.tuoi;
+					if (isAge(hienTai->data.tuoi) == false) {
+						cout << "Tuoi khong hop le!\nVui long nhap tuoi khac!\n" << endl;
+					}
+				}
+				while (isAge(hienTai->data.tuoi) == false);
 
-				cout << "Nhap CCCD moi: ";
-				getline(cin, hienTai->data.CCCD);
+				do {
+					cout << "Nhap so dien thoai moi: ";
+					cin.ignore();
+					getline(cin, hienTai->data.soDT);
+					if (isSDT(hienTai->data.soDT) == false) {
+					cout << "So dien thoai khong hop le!\nVui long nhap lai so dien thoai khac!\n" << endl;
+					}
+				}
+				while (isSDT(hienTai->data.soDT) == false);
 
-				cout << "Nhap dia chi moi: ";
-				getline(cin, hienTai->data.diaChi);
+				do {
+					cout << "Nhap CCCD moi: ";
+					getline(cin, hienTai->data.CCCD);		
+					if (isCCCD(hienTai->data.CCCD) == false) {
+					cout << "CCCD khong hop le!\nVui long nhap lai so CCCD khac!\n" << endl;
+					}		
+				}
+				while (isCCCD(hienTai->data.CCCD) == false);
 
-				cout << "Nhap tai khoan moi: ";
-				cin >> hienTai->data.taiKhoan;
+				do {
+					cout << "Nhap dia chi moi: ";
+					getline(cin, hienTai->data.diaChi);
+					if (isName(hienTai->data.diaChi) == false) {
+					cout << "Dia chi khong hop le!\n(Dia chi hop le: VD: Binh Dinh, Tp Ho Chi Minh)\nVui long nhap lai 1 dia chi khac!\n" << endl;
+					}
+				}
+				while (isName(hienTai->data.diaChi) == false);
+
+				do {
+					cout << "Nhap tai khoan moi: ";
+					cin >> hienTai->data.taiKhoan;
+					if (isTaiKhoan(hienTai->data.taiKhoan) == false) {
+					cout << "So du tai khoan khong hop le!\n(So du tai khoan hop le: VD: 100 000(tro len))\nVui long nhap lai 1 so du tai khoan khac!\n" << endl;
+					}
+				}
+				while (isTaiKhoan(hienTai->data.taiKhoan) == false);
 
 				cout << "Thong tin khach hang da duoc cap nhat!" << endl;
 				return;
@@ -610,6 +835,7 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 	}
 
 	void timKiemKHTheoTen() {
+		// Kiểm tra danh sách khách hàng có rỗng hay không
 		if (danhSachKhachHang.dauKH == nullptr) {
 			cout << "Danh sach khach hang rong." << endl;
 			return;
@@ -620,18 +846,25 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 		getline(cin, tenKhachCanTim);
 
 		NodeKH* hienTai = danhSachKhachHang.dauKH;
+		bool coKhachHang = false;  // Biến cờ để kiểm tra xem có khách hàng nào thỏa mãn hay không
+
+		cout << "+---------------+--------------------+------+---------------+--------------------+--------------------+---------------+" << endl;
+		cout << "|   Ma khach    |     Ten khach      | Tuoi | So dien thoai |       CCCD         |      Dia chi       |   Tai khoan   |" << endl;
+		cout << "+---------------+--------------------+------+---------------+--------------------+--------------------+---------------+" << endl;
+
 		while (hienTai != nullptr) {
 			if (hienTai->data.tenKhach == tenKhachCanTim) {
-				cout << "+---------------+--------------------+------+---------------+--------------------+--------------------+---------------+" << endl;
-				cout << "|   Ma khach    |     Ten khach      | Tuoi | So dien thoai |       CCCD         |      Dia chi       |   Tai khoan   |" << endl;
-				cout << "+---------------+--------------------+------+---------------+--------------------+--------------------+---------------+" << endl;
 				inThongTin1KhachHang(hienTai->data);
-				cout << "+---------------+--------------------+------+---------------+--------------------+--------------------+---------------+" << endl;
-				return;
-			}				
-			hienTai = hienTai->next;	
+				coKhachHang = true;  // Đặt cờ thành true khi có ít nhất một khách hàng thỏa mãn
+			}
+			hienTai = hienTai->next;
 		}
-		cout << "Khong tim thay khach hang co ten " << tenKhachCanTim << " trong danh sach." << endl;
+
+		if (!coKhachHang) {
+			cout << "|                       Khong tim thay khach hang co ten " << setw(20) << tenKhachCanTim << " trong danh sach.                       |" << endl;
+		}
+
+		cout << "+---------------+--------------------+------+---------------+--------------------+--------------------+---------------+" << endl;
 	}
 
 	void sapXepKHTangDanTheoTen() {
@@ -802,13 +1035,12 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 	}
 
 	// doc ghi file-------------------------------------------------------------------------------------------------------------------------------
-	void ghiVaoFile(const DanhSachPhong& danhSachPhong, const DanhSachKhachHang& danhSachKhachHang) {
-		const string tenFile = "DanhSach.txt";  // Tên file mặc định
-
+	// Ghi phòng vào file
+	void ghiVaoFilePhong(const DanhSachPhong& danhSachPhong) {
+		const string tenFile = "DanhSachPhong.txt";
 		ofstream outFile(tenFile);
 
 		if (outFile.is_open()) {
-			// Ghi danh sách phòng
 			Node* currentPhong = danhSachPhong.dau;
 			while (currentPhong != nullptr) {
 				outFile << "Ma phong: " << currentPhong->data.maPhong << endl;
@@ -820,7 +1052,91 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 				currentPhong = currentPhong->next;
 			}
 
-			// Ghi danh sách khách hàng
+			outFile.close();
+			cout << "Danh sach phong da duoc ghi vao file." << endl;
+		} else {
+			cerr << "Khong the mo file de ghi." << endl;
+		}
+	}
+
+	// Đọc phòng từ file
+	void docTuFilePhong(DanhSachPhong& danhSachPhong) {
+		const string tenFile = "DanhSachPhong.txt";
+		ifstream inFile(tenFile);
+
+		if (inFile.is_open()) {
+			string line;
+			bool loi = false;
+
+			while (getline(inFile, line)) {
+				if (line == "") continue;
+
+				Phong phong;
+				if (line.find("Ma phong:") != string::npos) {
+					phong.maPhong = line.substr(line.find(":") + 2);
+					getline(inFile, line);
+					if (line.find("Loai phong:") != string::npos) {
+						phong.loaiPhong = (line.substr(line.find(":") + 2) == "VIP");
+						getline(inFile, line);
+						if (line.find("Gia phong:") != string::npos) {
+							try {
+								phong.giaPhong = stoi(line.substr(line.find(":") + 2));
+							} catch (const exception& e) {
+								cerr << "Loi: " << e.what() << endl;
+								loi = true;
+								break;
+							}
+							getline(inFile, line);
+							if (line.find("Trang thai:") != string::npos) {
+								phong.trangThai = (line.substr(line.find(":") + 2) == "Da dat");
+
+								// Thêm phòng vào danh sách
+								Node* newNode = new Node{phong, nullptr};
+								if (danhSachPhong.dau == nullptr) {
+									danhSachPhong.dau = newNode;
+									danhSachPhong.cuoi = newNode;
+								} else {
+									danhSachPhong.cuoi->next = newNode;
+									danhSachPhong.cuoi = newNode;
+								}
+							} else {
+								cerr << "Loi: Du lieu trang thai phong khong hop le." << endl;
+								loi = true;
+								break;
+							}
+						} else {
+							cerr << "Loi: Du lieu gia phong khong hop le." << endl;
+							loi = true;
+							break;
+						}
+					} else {
+						cerr << "Loi: Du lieu loai phong khong hop le." << endl;
+						loi = true;
+						break;
+					}
+				} else {
+					cerr << "Loi: Du lieu ma phong khong hop le." << endl;
+					loi = true;
+					break;
+				}
+			}
+
+			inFile.close();
+
+			if (!loi) {
+				cout << "Danh sach phong da duoc doc tu file." << endl;
+			}
+		} else {
+			cerr << "Khong the mo file de doc." << endl;
+		}
+	}
+
+	// Ghi khách hàng vào file
+	void ghiVaoFileKhachHang(const DanhSachKhachHang& danhSachKhachHang) {
+		const string tenFile = "DanhSachKhachHang.txt";
+		ofstream outFile(tenFile);
+
+		if (outFile.is_open()) {
 			NodeKH* currentKhachHang = danhSachKhachHang.dauKH;
 			while (currentKhachHang != nullptr) {
 				outFile << "Ma khach: " << currentKhachHang->data.maKhach << endl;
@@ -836,50 +1152,109 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 			}
 
 			outFile.close();
-			cout << "Danh sach phong va khach hang da duoc ghi vao file." << endl;
+			cout << "Danh sach khach hang da duoc ghi vao file." << endl;
 		} else {
 			cerr << "Khong the mo file de ghi." << endl;
 		}
 	}
 
-	void docTuFile(DanhSachPhong &danhSachPhong, DanhSachKhachHang &danhSachKhachHang) {
-		const string tenFile = "DanhSach.txt"; // Tên file mặc định
-
+	// Đọc khách hàng từ file
+	void docTuFileKhachHang(DanhSachKhachHang& danhSachKhachHang) {
+		const string tenFile = "DanhSachKhachHang.txt";
 		ifstream inFile(tenFile);
 
 		if (inFile.is_open()) {
-			// Đọc danh sách phòng
-			while (inFile >> ws && inFile.good()) { // ws để bỏ qua khoảng trắng (white spaces)
-				Phong phong;
-				inFile >> phong.maPhong >> phong.loaiPhong >> phong.giaPhong >> phong.trangThai;
+			string line;
+			bool loi = false;
 
-				// Thêm phòng vào danh sách
-				Node* newNode = new Node{phong, nullptr};
-				if (danhSachPhong.dau == nullptr) {
-					danhSachPhong.dau = danhSachPhong.cuoi = newNode;
-				} else {
-					danhSachPhong.cuoi->next = newNode;
-					danhSachPhong.cuoi = newNode;
-				}
-			}
+			while (getline(inFile, line)) {
+				if (line == "") continue;
 
-			// Đọc danh sách khách hàng
-			while (inFile >> ws && inFile.good()) {
 				KhachHang khachHang;
-				inFile >> khachHang.maKhach >> khachHang.tenKhach >> khachHang.tuoi >> khachHang.soDT >> khachHang.CCCD >> khachHang.diaChi >> khachHang.taiKhoan;
+				if (line.find("Ma khach:") != string::npos) {
+					khachHang.maKhach = line.substr(line.find(":") + 2);
+					getline(inFile, line);
+					if (line.find("Ten khach:") != string::npos) {
+						khachHang.tenKhach = line.substr(line.find(":") + 2);
+						getline(inFile, line);
+						if (line.find("Tuoi:") != string::npos) {
+							try {
+								khachHang.tuoi = stoi(line.substr(line.find(":") + 2));
+							} catch (const exception& e) {
+								cerr << "Loi: " << e.what() << endl;
+								loi = true;
+								break;
+							}
+							getline(inFile, line);
+							if (line.find("So dien thoai:") != string::npos) {
+								khachHang.soDT = line.substr(line.find(":") + 2);
+								getline(inFile, line);
+								if (line.find("CCCD:") != string::npos) {
+									khachHang.CCCD = line.substr(line.find(":") + 2);
+									getline(inFile, line);
+									if (line.find("Dia chi:") != string::npos) {
+										khachHang.diaChi = line.substr(line.find(":") + 2);
+										getline(inFile, line);
+										if (line.find("Tai khoan:") != string::npos) {
+											try {
+												khachHang.taiKhoan = stoi(line.substr(line.find(":") + 2));
+											} catch (const exception& e) {
+												cerr << "Loi: " << e.what() << endl;
+												loi = true;
+												break;
+											}
 
-				// Thêm khách hàng vào danh sách
-				NodeKH* newNodeKH = new NodeKH{khachHang, nullptr};
-				if (danhSachKhachHang.dauKH == nullptr) {
-					danhSachKhachHang.dauKH = danhSachKhachHang.cuoiKH = newNodeKH;
+											// Thêm khách hàng vào danh sách
+											NodeKH* newNode = new NodeKH{khachHang, nullptr};
+											if (danhSachKhachHang.dauKH == nullptr) {
+												danhSachKhachHang.dauKH = newNode;
+												danhSachKhachHang.cuoiKH = newNode;
+											} else {
+												danhSachKhachHang.cuoiKH->next = newNode;
+												danhSachKhachHang.cuoiKH = newNode;
+											}
+										} else {
+											cerr << "Loi: Du lieu tai khoan khong hop le." << endl;
+											loi = true;
+											break;
+										}
+									} else {
+										cerr << "Loi: Du lieu dia chi khong hop le." << endl;
+										loi = true;
+										break;
+									}
+								} else {
+									cerr << "Loi: Du lieu CCCD khong hop le." << endl;
+									loi = true;
+									break;
+								}
+							} else {
+								cerr << "Loi: Du lieu so dien thoai khong hop le." << endl;
+								loi = true;
+								break;
+							}
+						} else {
+							cerr << "Loi: Du lieu tuoi khong hop le." << endl;
+							loi = true;
+							break;
+						}
+					} else {
+						cerr << "Loi: Du lieu ten khach khong hop le." << endl;
+						loi = true;
+						break;
+					}
 				} else {
-					danhSachKhachHang.cuoiKH->next = newNodeKH;
-					danhSachKhachHang.cuoiKH = newNodeKH;
+					cerr << "Loi: Du lieu ma khach khong hop le." << endl;
+					loi = true;
+					break;
 				}
 			}
 
 			inFile.close();
-			cout << "Danh sach phong va khach hang da duoc doc tu file." << endl;
+
+			if (!loi) {
+				cout << "Danh sach khach hang da duoc doc tu file." << endl;
+			}
 		} else {
 			cerr << "Khong the mo file de doc." << endl;
 		}
@@ -1149,8 +1524,10 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 			cout << "+----------------------------------------+" << endl;
 			cout << "|            MENU DOC/GHI FILE           |" << endl;
 			cout << "+----------------------------------------+" << endl;
-			cout << "| 1. Ghi vao File                        |" << endl;
-			cout << "| 2. Doc File                            |" << endl;
+			cout << "| 1. Ghi Danh sach phong vao File Phong  |" << endl;
+			cout << "| 2. Doc Danh sach phong tu File         |" << endl;
+			cout << "| 3. Ghi Danh sach Khach hang vao File   |" << endl;
+			cout << "| 4. Doc Danh sach phong tu File         |" << endl;
 			cout << "+----------------------------------------+" << endl;
 			cout << "| 0. Quay lại                            |" << endl;
 			cout << "+----------------------------------------+" << endl << endl;
@@ -1162,11 +1539,19 @@ int SLPhong = 0, SLKhach = 0, SLDatPhong = 0;
 
 			switch(chon) {
 				case 1: 
-					ghiVaoFile(danhSachPhong, danhSachKhachHang);
+					ghiVaoFilePhong(danhSachPhong);
 					system("pause");
 					break;
 				case 2:
-					docTuFile(danhSachPhong, danhSachKhachHang);
+					docTuFilePhong(danhSachPhong);
+					system("pause");
+					break;
+				case 3:
+					ghiVaoFileKhachHang(danhSachKhachHang);
+					system("pause");
+					break;
+				case 4:
+					docTuFileKhachHang(danhSachKhachHang);
 					system("pause");
 					break;
 				case 0:

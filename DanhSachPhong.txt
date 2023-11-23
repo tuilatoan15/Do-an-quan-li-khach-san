@@ -1,0 +1,5 @@
+Ma phong: PH001
+Loai phong: VIP
+Gia phong: 1000000
+Trang thai: Da dat
+

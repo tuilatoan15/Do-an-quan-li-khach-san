@@ -1,0 +1,8 @@
+Ma khach: KH001
+Ten khach: Toan
+Tuoi: 20
+So dien thoai: 0987654321
+CCCD: 098765432121
+Dia chi: Binh
+Tai khoan: 10000000
+

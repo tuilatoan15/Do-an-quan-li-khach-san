@@ -1,8 +1,24 @@
+Ma khach: KH002
+Ten khach: Nguyen Thanh Thuong
+Tuoi: 22
+So dien thoai: 0987654365
+CCCD: 098756431245
+Dia chi: Tp Ho Chi Minh
+Tai khoan: 9000000
+
 Ma khach: KH001
-Ten khach: Toan
-Tuoi: 20
-So dien thoai: 0987654321
-CCCD: 098765432121
-Dia chi: Binh
+Ten khach: Nguyen Thanh Luan
+Tuoi: 45
+So dien thoai: 0987654132
+CCCD: 098765412345
+Dia chi: Binh Dinh
 Tai khoan: 10000000
+
+Ma khach: KH003
+Ten khach: Nguyen Quang Nhat
+Tuoi: 19
+So dien thoai: 0876543163
+CCCD: 098765436789
+Dia chi: Binh Dinh
+Tai khoan: 6900000
 

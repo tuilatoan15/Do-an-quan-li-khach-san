@@ -1,5 +1,499 @@
 Ma phong: PH001
+Loai phong: Thuong
+Gia phong: 300000
+Trang thai: Chua dat
+
+Ma phong: PH002
+Loai phong: Thuong
+Gia phong: 900000
+Trang thai: Da dat
+
+Ma phong: PH003
+Loai phong: VIP
+Gia phong: 100000
+Trang thai: Da dat
+
+Ma phong: PH004
+Loai phong: VIP
+Gia phong: 500000
+Trang thai: Da dat
+
+Ma phong: PH005
+Loai phong: VIP
+Gia phong: 700000
+Trang thai: Da dat
+
+Ma phong: PH006
+Loai phong: Thuong
+Gia phong: 900000
+Trang thai: Da dat
+
+Ma phong: PH007
+Loai phong: Thuong
+Gia phong: 300000
+Trang thai: Chua dat
+
+Ma phong: PH008
+Loai phong: Thuong
+Gia phong: 1000000
+Trang thai: Da dat
+
+Ma phong: PH009
+Loai phong: Thuong
+Gia phong: 900000
+Trang thai: Chua dat
+
+Ma phong: PH010
+Loai phong: Thuong
+Gia phong: 100000
+Trang thai: Chua dat
+
+Ma phong: PH011
+Loai phong: VIP
+Gia phong: 900000
+Trang thai: Da dat
+
+Ma phong: PH012
+Loai phong: Thuong
+Gia phong: 1000000
+Trang thai: Da dat
+
+Ma phong: PH013
+Loai phong: Thuong
+Gia phong: 100000
+Trang thai: Chua dat
+
+Ma phong: PH014
 Loai phong: VIP
 Gia phong: 1000000
 Trang thai: Da dat
 
+Ma phong: PH015
+Loai phong: Thuong
+Gia phong: 1000000
+Trang thai: Da dat
+
+Ma phong: PH016
+Loai phong: Thuong
+Gia phong: 700000
+Trang thai: Da dat
+
+Ma phong: PH017
+Loai phong: VIP
+Gia phong: 100000
+Trang thai: Da dat
+
+Ma phong: PH018
+Loai phong: VIP
+Gia phong: 200000
+Trang thai: Chua dat
+
+Ma phong: PH019
+Loai phong: VIP
+Gia phong: 700000
+Trang thai: Da dat
+
+Ma phong: PH020
+Loai phong: Thuong
+Gia phong: 600000
+Trang thai: Chua dat
+
+Ma phong: PH021
+Loai phong: VIP
+Gia phong: 600000
+Trang thai: Da dat
+
+Ma phong: PH022
+Loai phong: VIP
+Gia phong: 400000
+Trang thai: Chua dat
+
+Ma phong: PH023
+Loai phong: Thuong
+Gia phong: 200000
+Trang thai: Da dat
+
+Ma phong: PH024
+Loai phong: Thuong
+Gia phong: 100000
+Trang thai: Chua dat
+
+Ma phong: PH025
+Loai phong: Thuong
+Gia phong: 600000
+Trang thai: Da dat
+
+Ma phong: PH026
+Loai phong: VIP
+Gia phong: 400000
+Trang thai: Da dat
+
+Ma phong: PH027
+Loai phong: VIP
+Gia phong: 900000
+Trang thai: Da dat
+
+Ma phong: PH028
+Loai phong: Thuong
+Gia phong: 100000
+Trang thai: Da dat
+
+Ma phong: PH029
+Loai phong: Thuong
+Gia phong: 700000
+Trang thai: Da dat
+
+Ma phong: PH030
+Loai phong: Thuong
+Gia phong: 800000
+Trang thai: Da dat
+
+Ma phong: PH031
+Loai phong: VIP
+Gia phong: 400000
+Trang thai: Chua dat
+
+Ma phong: PH032
+Loai phong: VIP
+Gia phong: 700000
+Trang thai: Da dat
+
+Ma phong: PH033
+Loai phong: VIP
+Gia phong: 400000
+Trang thai: Da dat
+
+Ma phong: PH034
+Loai phong: VIP
+Gia phong: 400000
+Trang thai: Da dat
+
+Ma phong: PH035
+Loai phong: Thuong
+Gia phong: 1000000
+Trang thai: Chua dat
+
+Ma phong: PH036
+Loai phong: Thuong
+Gia phong: 1000000
+Trang thai: Chua dat
+
+Ma phong: PH037
+Loai phong: VIP
+Gia phong: 100000
+Trang thai: Da dat
+
+Ma phong: PH038
+Loai phong: Thuong
+Gia phong: 800000
+Trang thai: Da dat
+
+Ma phong: PH039
+Loai phong: Thuong
+Gia phong: 400000
+Trang thai: Chua dat
+
+Ma phong: PH040
+Loai phong: VIP
+Gia phong: 100000
+Trang thai: Da dat
+
+Ma phong: PH041
+Loai phong: Thuong
+Gia phong: 700000
+Trang thai: Da dat
+
+Ma phong: PH042
+Loai phong: Thuong
+Gia phong: 600000
+Trang thai: Chua dat
+
+Ma phong: PH043
+Loai phong: VIP
+Gia phong: 400000
+Trang thai: Da dat
+
+Ma phong: PH044
+Loai phong: Thuong
+Gia phong: 600000
+Trang thai: Chua dat
+
+Ma phong: PH045
+Loai phong: Thuong
+Gia phong: 700000
+Trang thai: Da dat
+
+Ma phong: PH046
+Loai phong: Thuong
+Gia phong: 300000
+Trang thai: Da dat
+
+Ma phong: PH047
+Loai phong: Thuong
+Gia phong: 300000
+Trang thai: Da dat
+
+Ma phong: PH048
+Loai phong: VIP
+Gia phong: 900000
+Trang thai: Chua dat
+
+Ma phong: PH049
+Loai phong: VIP
+Gia phong: 700000
+Trang thai: Chua dat
+
+Ma phong: PH050
+Loai phong: Thuong
+Gia phong: 100000
+Trang thai: Chua dat
+
+Ma phong: PH051
+Loai phong: VIP
+Gia phong: 500000
+Trang thai: Chua dat
+
+Ma phong: PH052
+Loai phong: Thuong
+Gia phong: 1000000
+Trang thai: Chua dat
+
+Ma phong: PH053
+Loai phong: VIP
+Gia phong: 600000
+Trang thai: Da dat
+
+Ma phong: PH054
+Loai phong: VIP
+Gia phong: 1000000
+Trang thai: Chua dat
+
+Ma phong: PH055
+Loai phong: VIP
+Gia phong: 900000
+Trang thai: Chua dat
+
+Ma phong: PH056
+Loai phong: Thuong
+Gia phong: 900000
+Trang thai: Da dat
+
+Ma phong: PH057
+Loai phong: VIP
+Gia phong: 300000
+Trang thai: Chua dat
+
+Ma phong: PH058
+Loai phong: Thuong
+Gia phong: 500000
+Trang thai: Da dat
+
+Ma phong: PH059
+Loai phong: Thuong
+Gia phong: 1000000
+Trang thai: Chua dat
+
+Ma phong: PH060
+Loai phong: Thuong
+Gia phong: 400000
+Trang thai: Chua dat
+
+Ma phong: PH061
+Loai phong: VIP
+Gia phong: 700000
+Trang thai: Da dat
+
+Ma phong: PH062
+Loai phong: Thuong
+Gia phong: 900000
+Trang thai: Chua dat
+
+Ma phong: PH063
+Loai phong: VIP
+Gia phong: 200000
+Trang thai: Chua dat
+
+Ma phong: PH064
+Loai phong: Thuong
+Gia phong: 100000
+Trang thai: Da dat
+
+Ma phong: PH065
+Loai phong: VIP
+Gia phong: 900000
+Trang thai: Da dat
+
+Ma phong: PH066
+Loai phong: Thuong
+Gia phong: 100000
+Trang thai: Chua dat
+
+Ma phong: PH067
+Loai phong: Thuong
+Gia phong: 700000
+Trang thai: Da dat
+
+Ma phong: PH068
+Loai phong: VIP
+Gia phong: 1000000
+Trang thai: Da dat
+
+Ma phong: PH069
+Loai phong: VIP
+Gia phong: 300000
+Trang thai: Chua dat
+
+Ma phong: PH070
+Loai phong: VIP
+Gia phong: 100000
+Trang thai: Chua dat
+
+Ma phong: PH071
+Loai phong: Thuong
+Gia phong: 1000000
+Trang thai: Da dat
+
+Ma phong: PH072
+Loai phong: VIP
+Gia phong: 300000
+Trang thai: Chua dat
+
+Ma phong: PH073
+Loai phong: Thuong
+Gia phong: 900000
+Trang thai: Chua dat
+
+Ma phong: PH074
+Loai phong: Thuong
+Gia phong: 600000
+Trang thai: Chua dat
+
+Ma phong: PH075
+Loai phong: Thuong
+Gia phong: 500000
+Trang thai: Da dat
+
+Ma phong: PH076
+Loai phong: VIP
+Gia phong: 600000
+Trang thai: Chua dat
+
+Ma phong: PH077
+Loai phong: Thuong
+Gia phong: 1000000
+Trang thai: Chua dat
+
+Ma phong: PH078
+Loai phong: Thuong
+Gia phong: 1000000
+Trang thai: Chua dat
+
+Ma phong: PH079
+Loai phong: VIP
+Gia phong: 600000
+Trang thai: Chua dat
+
+Ma phong: PH080
+Loai phong: VIP
+Gia phong: 400000
+Trang thai: Da dat
+
+Ma phong: PH081
+Loai phong: VIP
+Gia phong: 300000
+Trang thai: Da dat
+
+Ma phong: PH082
+Loai phong: Thuong
+Gia phong: 700000
+Trang thai: Da dat
+
+Ma phong: PH083
+Loai phong: VIP
+Gia phong: 700000
+Trang thai: Chua dat
+
+Ma phong: PH084
+Loai phong: Thuong
+Gia phong: 800000
+Trang thai: Chua dat
+
+Ma phong: PH085
+Loai phong: Thuong
+Gia phong: 400000
+Trang thai: Chua dat
+
+Ma phong: PH086
+Loai phong: Thuong
+Gia phong: 700000
+Trang thai: Chua dat
+
+Ma phong: PH087
+Loai phong: Thuong
+Gia phong: 600000
+Trang thai: Da dat
+
+Ma phong: PH088
+Loai phong: VIP
+Gia phong: 500000
+Trang thai: Da dat
+
+Ma phong: PH089
+Loai phong: VIP
+Gia phong: 700000
+Trang thai: Da dat
+
+Ma phong: PH090
+Loai phong: VIP
+Gia phong: 200000
+Trang thai: Chua dat
+
+Ma phong: PH091
+Loai phong: VIP
+Gia phong: 400000
+Trang thai: Chua dat
+
+Ma phong: PH092
+Loai phong: VIP
+Gia phong: 200000
+Trang thai: Da dat
+
+Ma phong: PH093
+Loai phong: Thuong
+Gia phong: 600000
+Trang thai: Da dat
+
+Ma phong: PH094
+Loai phong: VIP
+Gia phong: 500000
+Trang thai: Da dat
+
+Ma phong: PH095
+Loai phong: Thuong
+Gia phong: 600000
+Trang thai: Da dat
+
+Ma phong: PH096
+Loai phong: Thuong
+Gia phong: 500000
+Trang thai: Da dat
+
+Ma phong: PH097
+Loai phong: Thuong
+Gia phong: 800000
+Trang thai: Da dat
+
+Ma phong: PH098
+Loai phong: Thuong
+Gia phong: 500000
+Trang thai: Chua dat
+
+Ma phong: PH099
+Loai phong: Thuong
+Gia phong: 400000
+Trang thai: Da dat
+
+Ma phong: PH100
+Loai phong: Thuong
+Gia phong: 800000
+Trang thai: Chua dat
